@@ -1,0 +1,38 @@
+        <div class="container">
+            <h1>Edit question</h1>
+            <form id="frm-create" action="/update" method="post">
+                <div class="form-group">
+                    <label for="text">Text</label>
+                    <input type="text" name="text" value="{{question.text}}"/>
+                    <input type="hidden" name="questionId" value="{{question._id}}">
+                </div>
+                
+                <div class="form-group">
+                    <label>Answers: </label>
+                    {{#each question.answers}}
+                    <div class="answer">
+                        <input type="text" name="answers" value="{{answer}}" />
+                        <div>
+                            <input name="correctAnswer" type="radio" value="{{inc @index}}" id="answer{{inc @index}}" {{#if isCorrect}}checked{{/if}} /> <label for="answer{{inc @index}}">correct</label>
+                        </div>
+                        <button type="button" class="btn btn-orange"><i class="fas fa-times"></i> Remove</button>
+                    </div>
+                    {{/each}}
+                    <div class="text-right">
+                        <a href="/add-answer?id={{question._id}}" type="button" class="btn btn-blue"><i class="fas fa-plus"></i> Add</a>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button type="submit" class="btn btn-blue btn-large"><i class="fas fa-save"></i> Save</button>
+                </div>
+            </form>
+        </div>
+        {{!-- {{#each errors}}
+            <script>
+            function alert() {
+            alert("Invalid input");
+            }
+            alert();
+        </script>
+        {{/each}} --}}

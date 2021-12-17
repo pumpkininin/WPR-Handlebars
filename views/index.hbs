@@ -1,0 +1,28 @@
+        <div class="container">
+            <h1>All questions</h1>
+
+            <form id="search" action="/search" method="post">
+                <input type="text" placeholder="Search..." name="keyword" id="keyword"/>
+            </form>
+
+            <table>
+                <tr>
+                    <th>#</th>
+                    <th>Question</th>
+                    <th>Answer</th>
+                    <th width="210">Actions</th>
+                </tr>
+    
+            {{#each questions}}
+                <tr>
+                    <td>{{inc @index}}</td>
+                    <td>{{text}}</td>
+                    <td>{{correctAnswer}}</td>
+                    <td>
+                        <a href="/edit-form?id={{_id}}" class="btn btn-blue"><i class="far fa-edit"></i> Edit</a>
+                        <a href="#" class="btn btn-orange"><i class="far fa-trash-alt"></i> Delete</a>
+                    </td>
+                </tr>
+            {{/each}}
+            </table>
+        </div>

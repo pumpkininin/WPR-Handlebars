@@ -1,0 +1,35 @@
+        <div class="container">
+            <h1>New question</h1>
+            <form id="frm-create">
+                <div class="form-group">
+                    <label for="text">Text</label>
+                    <input type="text" name="text" value="What does HTML stand for?" />
+                </div>
+                
+                <div class="form-group">
+                    <label>Answers: </label>
+                    <div class="answer">
+                        <input type="text" name="answers" value="A" />
+                        <div>
+                            <input name="correctAnswer" type="radio" value="0" id="answer0" checked /> <label for="answer0">correct</label>
+                        </div>
+                        <button type="button" class="btn btn-orange"><i class="fas fa-times"></i> Remove</button>
+                    </div>
+                    <div class="answer">
+                        <input type="text" name="answers" value="B" />
+                        <div>
+                            <input name="correctAnswer" type="radio" value="0" id="answer1" /> <label for="answer1">correct</label>
+                        </div>
+                        <button type="button" class="btn btn-orange"><i class="fas fa-times"></i> Remove</button>
+                    </div>
+
+                    <div class="text-right">
+                        <button type="button" class="btn btn-blue"><i class="fas fa-plus"></i> Add</button>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button class="btn btn-blue btn-large"><i class="fas fa-save"></i> Save</button>
+                </div>
+            </form>
+        </div>
