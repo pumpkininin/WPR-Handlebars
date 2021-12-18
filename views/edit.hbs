@@ -1,13 +1,13 @@
         <div class="container">
             <h1>Edit question</h1>
-            <form id="frm-create" action="/update" method="post">
+            <form onsubmit="return prevSubmit();" id="form-create" action="/update" method="post">
                 <div class="form-group">
                     <label for="text">Text</label>
-                    <input type="text" name="text" value="{{question.text}}"/>
+                    <input type="text" id="text" name="text" value="{{question.text}}"/>
                     <input type="hidden" name="questionId" value="{{question._id}}">
                 </div>
                 
-                <div class="form-group">
+                <div class="form-group" id="answer-group">
                     <label>Answers: </label>
                     {{#each question.answers}}
                     <div class="answer">
@@ -15,11 +15,11 @@
                         <div>
                             <input name="correctAnswer" type="radio" value="{{inc @index}}" id="answer{{inc @index}}" {{#if isCorrect}}checked{{/if}} /> <label for="answer{{inc @index}}">correct</label>
                         </div>
-                        <button type="button" class="btn btn-orange"><i class="fas fa-times"></i> Remove</button>
+                        <button onclick="removeAnswer(event)" type="button" class="btn btn-orange"><i class="fas fa-times"></i> Remove</button>
                     </div>
                     {{/each}}
-                    <div class="text-right">
-                        <a href="/add-answer?id={{question._id}}" type="button" class="btn btn-blue"><i class="fas fa-plus"></i> Add</a>
+                    <div class="text-right text-add">
+                        <a onclick="addAnswer();" type="button" class="btn btn-blue btn-add"><i class="fas fa-plus"></i> Add</a>
                     </div>
                 </div>
 
@@ -28,11 +28,40 @@
                 </div>
             </form>
         </div>
-        {{!-- {{#each errors}}
-            <script>
-            function alert() {
-            alert("Invalid input");
+        <script>
+            function removeAnswer(event){
+                event.currentTarget.parentNode.remove();
             }
-            alert();
+            function addAnswer(){
+                newAns = document.querySelector(".answer").cloneNode(true);
+                console.log(newAns.querySelectorAll("input")[0])
+                newAns.querySelectorAll("input")[0].value = ""
+                newAns.querySelectorAll("input")[1].checked = false;
+                newAns.querySelectorAll("input")[1].id = 'answer'+ (document.querySelectorAll("input[type=radio]").length+1);
+                newAns.querySelector("label").htmlFor= 'answer'+ (document.querySelectorAll("input[type=radio]").length+1);
+                document.querySelector("#answer-group").insertBefore(newAns, document.querySelector(".text-add"))
+            }
+            function prevSubmit(){
+                valid = true;
+                text = document.getElementsByName("text")[0];
+                answers = document.getElementsByName("answers");
+                correctAnswers = document.getElementsByName("correctAnswer");
+                if(text.value == ""){
+                    alert("Invalid input");
+                       return false;
+                }
+                for(ans of answers){
+                    if(ans.value == ""){
+                        alert("Invalid input");
+                       return false;
+                    }
+                }
+                if((document.querySelectorAll("input[type=radio]:checked").length > 0)){
+                    valid = true;
+                }else{
+                    alert("Invalid input");
+                    return false;
+                }
+                return valid;
+            }
         </script>
-        {{/each}} --}}
