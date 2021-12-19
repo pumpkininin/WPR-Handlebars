@@ -1,22 +1,30 @@
         <div class="container">
             <h1>New question</h1>
-            <form onsubmit="return prevSubmit();" id="frm-create" action="/add-question" method="post">
+            <form id="frm-create">
                 <div class="form-group">
                     <label for="text">Text</label>
-                    <input type="text" name="text" value="" />
+                    <input type="text" name="text" value="What does HTML stand for?" />
                 </div>
                 
-                <div class="form-group" id="answer-group">
+                <div class="form-group">
                     <label>Answers: </label>
                     <div class="answer">
-                        <input type="text" name="answers" value="" />
+                        <input type="text" name="answers" value="A" />
                         <div>
                             <input name="correctAnswer" type="radio" value="0" id="answer0" checked /> <label for="answer0">correct</label>
                         </div>
-                        <button onclick="removeAnswer(event)" type="button" class="btn btn-orange"><i class="fas fa-times"></i> Remove</button>
+                        <button type="button" class="btn btn-orange"><i class="fas fa-times"></i> Remove</button>
                     </div>
-                    <div class="text-right text-add">
-                        <button onclick="addAnswer();"  type="button" class="btn btn-blue"><i class="fas fa-plus"></i> Add</button>
+                    <div class="answer">
+                        <input type="text" name="answers" value="B" />
+                        <div>
+                            <input name="correctAnswer" type="radio" value="0" id="answer1" /> <label for="answer1">correct</label>
+                        </div>
+                        <button type="button" class="btn btn-orange"><i class="fas fa-times"></i> Remove</button>
+                    </div>
+
+                    <div class="text-right">
+                        <button type="button" class="btn btn-blue"><i class="fas fa-plus"></i> Add</button>
                     </div>
                 </div>
 
@@ -25,40 +33,3 @@
                 </div>
             </form>
         </div>
-                <script>
-            function removeAnswer(event){
-                event.currentTarget.parentNode.remove();
-            }
-            function addAnswer(){
-                newAns = document.querySelector(".answer").cloneNode(true);
-                console.log(newAns.querySelectorAll("input")[0])
-                newAns.querySelectorAll("input")[0].value = ""
-                newAns.querySelectorAll("input")[1].checked = false;
-                newAns.querySelectorAll("input")[1].id = 'answer'+ (document.querySelectorAll("input[type=radio]").length+1);
-                newAns.querySelector("label").htmlFor= 'answer'+ (document.querySelectorAll("input[type=radio]").length+1);
-                document.querySelector("#answer-group").insertBefore(newAns, document.querySelector(".text-add"))
-            }
-            function prevSubmit(){
-                valid = true;
-                text = document.getElementsByName("text")[0];
-                answers = document.getElementsByName("answers");
-                correctAnswers = document.getElementsByName("correctAnswer");
-                if(text.value == ""){
-                    alert("Invalid input");
-                       return false;
-                }
-                for(ans of answers){
-                    if(ans.value == ""){
-                        alert("Invalid input");
-                       return false;
-                    }
-                }
-                if((document.querySelectorAll("input[type=radio]:checked").length > 0)){
-                    valid = true;
-                }else{
-                    alert("Invalid input");
-                    return false;
-                }
-                return valid;
-            }
-        </script>
