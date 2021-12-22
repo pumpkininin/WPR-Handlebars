@@ -1,6 +1,6 @@
         <div class="container">
             <h1>Edit question</h1>
-            <form onsubmit="return prevSubmit();" id="form-create" action="/update" method="post">
+            <form onsubmit="return prevSubmit();" id="form-create" action="/edit" method="post">
                 <div class="form-group">
                     <label for="text">Text</label>
                     <input type="text" id="text" name="text" value="{{question.text}}"/>
@@ -11,9 +11,9 @@
                     <label>Answers: </label>
                     {{#each question.answers}}
                     <div class="answer">
-                        <input type="text" name="answers" value="{{answer}}" />
+                        <input type="text" name="answers" value="{{this}}" />
                         <div>
-                            <input name="correctAnswer" type="radio" value="{{inc @index}}" id="answer{{inc @index}}" {{#if isCorrect}}checked{{/if}} /> <label for="answer{{inc @index}}">correct</label>
+                            <input name="correctAnswer" type="radio" value="{{@index}}" id="answer{{inc @index}}" /> <label for="answer{{inc @index}}">correct</label>
                         </div>
                         <button onclick="removeAnswer(event)" type="button" class="btn btn-orange"><i class="fas fa-times"></i> Remove</button>
                     </div>
